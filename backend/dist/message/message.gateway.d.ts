@@ -4,8 +4,8 @@ export declare class MessageGateway implements OnGatewayInit, OnGatewayConnectio
     wss: Server;
     afterInit(server: Server): void;
     handleMessage(client: Socket, data: {
-        msg: string;
-        user: string;
+        message: string;
+        alias: string;
     }): void;
     handleDisconnect(client: Socket): void;
     handleConnection(client: Socket): void;

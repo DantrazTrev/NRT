@@ -17,6 +17,7 @@ let MessageGateway = class MessageGateway {
         console.log('Web Socket Server Init');
     }
     handleMessage(client, data) {
+        console.log(data);
         this.wss.emit('recMessage', data);
     }
     handleDisconnect(client) {
@@ -40,7 +41,7 @@ __decorate([
 ], MessageGateway.prototype, "handleMessage", null);
 MessageGateway = __decorate([
     (0, websockets_1.WebSocketGateway)(8000, {
-        cors: '*',
+        cors: { origin: '*' },
     })
 ], MessageGateway);
 exports.MessageGateway = MessageGateway;

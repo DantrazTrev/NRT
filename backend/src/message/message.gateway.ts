@@ -10,7 +10,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 @WebSocketGateway(8000, {
-  cors: '*',
+  cors: { origin: '*' },
 })
 export class MessageGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
@@ -22,7 +22,11 @@ export class MessageGateway
   }
 
   @SubscribeMessage('sendMessage')
-  handleMessage(client: Socket, data: { msg: string; user: string }): void {
+  handleMessage(
+    client: Socket,
+    data: { message: string; alias: string },
+  ): void {
+    console.log(data);
     this.wss.emit('recMessage', data);
   }
 

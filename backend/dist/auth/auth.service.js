@@ -27,6 +27,7 @@ let AuthService = class AuthService {
             return {
                 userId: user.userId,
                 userName: user.alias,
+                name: user.name,
             };
         }
         return null;
