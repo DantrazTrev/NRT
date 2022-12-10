@@ -9,15 +9,17 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-@WebSocketGateway({ path: '/message' })
+@WebSocketGateway(8000, {
+  cors: '*',
+})
 export class MessageGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
+  @WebSocketServer() wss: Server;
+
   afterInit(server: Server) {
     console.log('Web Socket Server Init');
   }
-
-  @WebSocketServer() wss: Server;
 
   @SubscribeMessage('sendMessage')
   handleMessage(client: Socket, data: { msg: string; user: string }): void {

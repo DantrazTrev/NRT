@@ -8,12 +8,9 @@ import { LocalStrategy } from '../auth/local.strategy';
 import { SessionSerializer } from 'src/auth/session.serializer';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-    PassportModule.register({ session: true }),
-  ],
+  imports: [TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
-  providers: [UsersService, LocalStrategy, SessionSerializer],
-  exports: [TypeOrmModule],
+  providers: [UsersService],
+  exports: [TypeOrmModule, UsersService],
 })
 export class UsersModule {}

@@ -43,7 +43,7 @@ export class UsersService {
       password: string;
     },
   ) {
-    const hashedpassword = await bcrypt.hash(updateUserDetails.password, 12);
+    const hashedpassword = await bcrypt.hash(updateUserDetails.password);
     return this.usersRepository.update(
       { userId },
       { password: hashedpassword },
@@ -55,7 +55,7 @@ export class UsersService {
     if (user) {
       throw new BadRequestException('Invalid Username');
     }
-    const hashedpassword = await bcrypt.hash(password, 12);
+    const hashedpassword = await bcrypt.hash(password);
     return this.usersRepository.save({ name, alias, password: hashedpassword });
   }
   async remove(id: string): Promise<void> {

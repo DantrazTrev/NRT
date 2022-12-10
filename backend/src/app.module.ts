@@ -6,6 +6,7 @@ import { DataSource } from 'typeorm';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/user.module';
 import { MessageGateway } from './message/message.gateway';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -19,6 +20,7 @@ import { MessageGateway } from './message/message.gateway';
       synchronize: true,
     }),
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, MessageGateway],

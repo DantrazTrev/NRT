@@ -2,7 +2,10 @@ import {
   Body,
   Controller,
   Get,
+  Header,
+  HttpCode,
   Post,
+  Req,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -20,21 +23,22 @@ export class UsersController {
 
   @Post('register')
   async createUser(
+    @Request() req,
     @Body('name') name: string,
     @Body('alias') alias: string,
     @Body('password') password: string,
   ) {
+    console.log(req.cookies); // undefined
+
     return this.userService.create(name, alias, password);
   }
-
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(
-    @Body('alias') alias: string,
-    @Body('password') password: string,
-  ) {
-    const user = await this.userService.login(alias, password);
-    return { alias: user.alias, name: user.name, id: user.userId };
+  @HttpCode(200)
+  @Header('Access-Control-Allow-Origin', 'http://localhost:3000')
+  @Header('Access-Control-Allow-Credentials', 'true')
+  async login(@Request() req) {
+    return { User: req.alias, msg: 'User logged in' };
   }
 
   @UseGuards(AuthenticatedGuard)
